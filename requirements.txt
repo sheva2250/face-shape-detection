@@ -1,5 +1,5 @@
-torch==2.5.0
-torchvision==0.18.0
-streamlit==1.32.2
-Pillow==10.3.0
-scikit-learn==1.4.2
+torch==1.13.1
+torchvision==0.14.1
+streamlit==1.27.2
+Pillow==9.5.0
+scikit-learn==1.2.2
