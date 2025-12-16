@@ -15,15 +15,22 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-# Load model
 @st.cache_resource
 def load_model():
     model = efficientnet_b4(weights=EfficientNet_B4_Weights.IMAGENET1K_V1)
+
     model.classifier = nn.Sequential(
         nn.Dropout(p=0.3, inplace=True),
         nn.Linear(model.classifier[1].in_features, 5)
     )
-    model.load_state_dict(torch.load("best_model.pth", map_location=device))
+
+    state = torch.load(
+        "best_model.pth",
+        map_location=device,
+        weights_only=False
+    )
+    model.load_state_dict(state)
+
     model.to(device)
     model.eval()
     return model
@@ -104,3 +111,4 @@ if camera_image is not None:
 
 # Footer
 st.markdown("<hr><center><small>© 2025 - Aplikasi Prediksi Wajah dengan AI</small></center>", unsafe_allow_html=True)
+
