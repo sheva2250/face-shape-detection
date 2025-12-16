@@ -15,7 +15,6 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-@st.cache_resource
 def load_model():
     model = efficientnet_b4(weights=EfficientNet_B4_Weights.IMAGENET1K_V1)
 
@@ -111,4 +110,5 @@ if camera_image is not None:
 
 # Footer
 st.markdown("<hr><center><small>© 2025 - Aplikasi Prediksi Wajah dengan AI</small></center>", unsafe_allow_html=True)
+
 
