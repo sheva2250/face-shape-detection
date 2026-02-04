@@ -5,10 +5,10 @@ from torchvision import transforms
 from torchvision.models import efficientnet_b4, EfficientNet_B4_Weights
 import torch.nn as nn
 
-# Setup device
+# setup device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# Image preprocessing
+# image preprocessing
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
@@ -36,44 +36,42 @@ def load_model():
 
 model = load_model()
 
-# Class name and detail
+# class name and detail
 class_info = {
-    "Diamond 💎": {
+    "Diamond": {
         "desc": "Wajah berbentuk diamond memiliki bagian dagu dan dahi sempit dengan tulang pipi lebar.",
         "tips": "Gunakan gaya rambut yang menambah volume di dahi atau bagian bawah wajah, seperti bob atau wave panjang."
     },
-    "Heart ❤️": {
+    "Heart": {
         "desc": "Bentuk wajah hati memiliki dahi lebar dan dagu yang runcing seperti segitiga terbalik.",
         "tips": "Cocok dengan poni samping atau rambut panjang dengan layer."
     },
-    "Oblong 🧊": {
+    "Oblong": {
         "desc": "Wajah oblong cenderung panjang dengan garis pipi lurus dan dagu berbentuk persegi.",
         "tips": "Hindari rambut terlalu panjang lurus, coba gaya wave atau poni samping untuk keseimbangan."
     },
-    "Oval 🥚": {
+    "Oval": {
         "desc": "Wajah oval memiliki proporsi seimbang dan sedikit lebih panjang daripada lebar.",
         "tips": "Beruntung! Hampir semua gaya rambut cocok dengan bentuk wajah ini."
     },
-    "Round ⚪": {
+    "Round": {
         "desc": "Wajah bulat ditandai dengan panjang dan lebar hampir sama, serta pipi penuh.",
         "tips": "Gunakan gaya yang menambah tinggi seperti layer panjang atau volume di atas kepala."
     }
 }
 
-# Mapping index to class
+# mapping index to class
 idx_to_class = list(class_info.keys())
 
-# --- UI DESIGN ---
-
 st.markdown("""
-    <h1 style='text-align: center; color: #4CAF50;'>✨ AI Prediksi Bentuk Wajah</h1>
+    <h1 style='text-align: center; color: #4CAF50;'>Prediksi Bentuk Wajah</h1>
     <p style='text-align: center; font-size: 18px;'>
         Gunakan kamera untuk mengenali bentuk wajah dan dapatkan tips gaya rambut terbaik!
     </p>
     <hr>
 """, unsafe_allow_html=True)
 
-camera_image = st.camera_input("📷 Ambil gambar wajah dengan pencahayaan cukup:")
+camera_image = st.camera_input("Ambil gambar wajah dengan pencahayaan cukup:")
 
 if camera_image is not None:
     img = Image.open(camera_image).convert("RGB")
@@ -92,16 +90,16 @@ if camera_image is not None:
     with col2:
         st.markdown(f"""
             <div style='padding: 20px; border-radius: 10px; background-color: #f1f8e9;'>
-                <h2 style='color: #33691E;'>🔍 Prediksi: {pred_label}</h2>
+                <h2 style='color: #33691E;'>Prediksi: {pred_label}</h2>
                 <p><b>Deskripsi:</b> {detail['desc']}</p>
-                <p><b>Rekomendasi Gaya Rambut:</b> 💇‍♀️ {detail['tips']}</p>
+                <p><b>Rekomendasi Gaya Rambut:</b>{detail['tips']}</p>
             </div>
         """, unsafe_allow_html=True)
 
     st.success("Prediksi berhasil! Anda bisa coba ambil gambar lain untuk mengecek kembali.")
 
     # Optional fun fact
-    with st.expander("🤖 Fakta AI!"):
+    with st.expander("Informasi AI"):
         st.markdown("""
             - Model yang digunakan adalah **EfficientNet B4**, dilatih dengan data bentuk wajah.
             - AI mengenali pola berdasarkan **proporsi wajah**, **struktur tulang**, dan **kontur garis**.
@@ -110,5 +108,6 @@ if camera_image is not None:
 
 # Footer
 st.markdown("<hr><center><small>© 2025 - Aplikasi Prediksi Wajah dengan AI</small></center>", unsafe_allow_html=True)
+
 
 
